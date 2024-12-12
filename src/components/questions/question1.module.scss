@@ -1,0 +1,40 @@
+.container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.box{
+  width: 100%;
+  display: flex;
+  gap: var(--interval-third);
+  justify-content: center;
+  align-items: center ;
+  input{
+    width: 90%;
+    height: 40px;
+    padding: 10px;
+  }
+  input:focus{
+    outline: none;
+  }
+  button{
+    height: 40px;
+  }
+}
+.questionImage{
+  width: 100%;
+}
+.answerText{
+  color: #66ef66;
+}
+.wrongText{
+  color: #ff4f4f;
+}
+.wrongStress{
+
+}

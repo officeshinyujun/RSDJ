@@ -1,0 +1,215 @@
+.container {
+  width: 100%;
+  height: 100vh;
+
+}
+
+.player {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  position: absolute;
+}
+
+.wall {
+  position: absolute;
+  background-color: black;
+}
+
+.box{
+  position: absolute;
+  width: 900px;
+  height: 605px;
+  //padding-left: var(--interval);
+  //padding-right: var(--interval);
+  //border: 1px solid red;
+  top: 50vh;
+  left: 50vw;
+  border-radius: 60px;
+  transform:translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-shadow: rgba(0, 0, 0, 0.5) 3px 3px 10px inset;
+  background: white;
+  opacity: 0; /* 기본 상태는 보이지 않음 */
+  transition: opacity 0.4s ease-in-out; /* 애니메이션 설정 */
+  color: var(--content);
+}
+
+.boxVisible {
+  opacity: 1; /* 보여지는 상태 */
+  transition-delay: 1.0s; /* 들어올 때는 지연 없이 바로 보여짐 */
+}
+
+.boxHidden {
+  opacity: 0; /* 나갈 때는 투명하게 */
+  transition-delay: 0s; /* 나갈 때는 1.2초 후에 서서히 사라짐 */
+}
+
+.content{
+  width: 100%;
+  height: calc(100% - 49px);
+  padding: 30px;
+  color: var(--surface);
+
+}
+.footer {
+  width: 100%;
+  background-color: #000000;
+  height: 49px;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  /* z-index를 적절히 조정 */
+  z-index: 1;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5); /* inner-shadow 추가 */
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  gap: 20px;
+}
+
+.mainMonitor{
+  position: absolute;
+  width: 15.91vw;
+  height: 19.58vh;
+  top: 47vh;
+  left: 50vw;
+  z-index: 1;
+  transform:translate(-50%, -50%);
+}
+.outCon{
+  z-index: 111;
+}
+.boxOverlay{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1111;
+  border-radius: 50px;
+  background-color: rgba(0, 0, 0, 0.2);
+  pointer-events: none
+}
+.windowLogo{
+  width: 40px;
+  height: 40px;
+}
+.mainModal{
+  position: absolute;
+  left: 20px;
+  background-color: var(--surface);
+  bottom: 49px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  p:hover{
+    cursor: pointer;
+  }
+  button{
+    border: none;
+    background: none;
+    img{
+      width: 20px;
+    }
+  }
+}
+.exitButton{
+  position: absolute;
+  left: 20px;
+  align-items: center;
+  gap: 20px;
+  display: flex;
+  bottom: 20px;
+  background: none;
+  border: none;
+  img{
+    height: 60px;
+  }
+  p{
+    color: var(--content);
+    font-size: 30px;
+  }
+}
+.exitButton:hover{
+  height: 80px;
+  cursor: pointer;
+  img{
+    height: 80px;
+  }
+  p{
+    font-size: 40px;
+  }
+}
+.door{
+  position: absolute;
+  top: 57vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  height: 54px;
+  width: 310px;
+  :hover{
+    cursor: pointer;
+  }
+}
+.doorLock {
+  position: absolute;
+  top: 49vh;
+  left: 49.5vw;
+  transform: translate(-50%, -50%);
+  height: 460px;
+  width: 340px;
+  background: #565656;
+  transition: opacity 0.4s ease-in-out;
+  opacity: 0;
+  z-index: 999;
+  padding: var(--interval-secondary);
+  button{
+    width: 100%;
+    height: 50px;
+  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.doorLock.doorLockVisible {
+  opacity: 1;
+  transition-delay: 1.0s;
+}
+
+.doorLock.doorLockNone {
+  opacity: 0;
+  transition-delay: 0s;
+}
+.doorLockButtons{
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  button{
+    width: 70px;
+    height: 70px;
+  }
+  margin-bottom: var(--interval-third);
+}
+.doorLockButtonCon{
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.screenTransition{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: var(--content);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 99999;
+}

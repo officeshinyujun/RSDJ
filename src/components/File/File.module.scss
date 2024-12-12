@@ -1,0 +1,67 @@
+// File.module.scss
+
+.container {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  position: absolute;
+  z-index: 111;
+  left: 25px;
+  top: 26px;
+}
+
+.img {
+  width: 85%;
+  height: 85%;
+}
+
+.container > p {
+  font-size: var(--text-fourth);
+  color: var(--surface);
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 110;
+}
+
+.modalContainer {
+  position: absolute;
+  background: gray;
+  z-index: 120;
+}
+
+.modalHeader {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; // 버튼 우측 정렬을 위해 추가
+  padding: 0 10px;
+  cursor: move;
+  user-select: none;
+  background-color: var(--surface);
+  color: var(--content);
+  gap: var(--interval-third);
+}
+.modalHeader > button{
+  width: 20px;
+  height: 20px;
+}
+
+.modalContent {
+  width: 100%;
+  height: calc(100% - 30px);
+  overflow: auto; // 내용이 많을 경우 스크롤
+  padding: 10px; // 내부 여백 추가
+  box-sizing: border-box; // 패딩을 너비/높이에 포함
+}
+
+
+

@@ -1,0 +1,12 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p{
+    color: var(--content);
+  }
+  flex-direction: column;
+}
