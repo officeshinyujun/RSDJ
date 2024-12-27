@@ -213,3 +213,59 @@
   pointer-events: none;
   z-index: 99999;
 }
+.musicContainer{
+  position: absolute;
+  top: 20px;
+  left: 60px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  transform: translateX(-20px);
+  pointer-events: none;
+  p{
+    color: var(--content);
+  }
+  button{
+    background: none;
+    border: none;
+    width: 50px;
+    height: 50px;
+  }
+  input{
+    width: 100px;
+  }
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+.settingButton{
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  height: 50px;
+  box-sizing: border-box;
+}
+.powerOnbutton{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: red;
+  top: 60.66vh;
+  left: 42.9vw;
+  border-radius: 50%;
+}
+.powerOffbutton{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: white;
+  top: 60.66vh;
+  left: 41vw;
+  border-radius: 50%;
+}

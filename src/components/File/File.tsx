@@ -3,6 +3,7 @@ import styles from "./File.module.scss";
 import folder from "../../assets/folder.svg";
 import useDoubleClick from "../../feature/useDoubleClick.tsx";
 import Modal from "../modal/Modal.tsx";
+import clickAudio from "../../assets/button-click.mp3"
 
 type Props = {
     image: string;
@@ -97,12 +98,24 @@ export default function File({ image, name, isFolder, children, modalHeight, mod
 
     const oneClicked = () => {
         console.log("clicked");
+        const audio = new Audio(clickAudio);
+        audio.play();
     };
 
     const doubleClicked = () => {
         console.log("double clicked");
+
+        // 첫 번째 재생
+        const audio1 = new Audio(clickAudio);
+        audio1.play();
+
+        // 두 번째 재생
+        const audio2 = new Audio(clickAudio);
+        audio2.play();
+
         setIsModalOpen(true);
     };
+
 
     const modalClose = () => {
         setIsModalOpen(false);

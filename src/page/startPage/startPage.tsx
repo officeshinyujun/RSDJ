@@ -97,8 +97,8 @@ export default function StartPage() {
     }, []);
 
     useEffect(() => {
-        if (answerArray.length > 0) {
-            if (localStorage.getItem('qnsjfiw') === undefined) {
+        if (answerArray.length > 0) { // 배열이 비어있지 않은 경우에만 실행
+            if (!localStorage.getItem('qnsjfiw')) { // 값이 저장되어 있지 않은 경우
                 localStorage.setItem('qnsjfiw', JSON.stringify(answerArray));
                 console.log("저장된 값:", localStorage.getItem('qnsjfiw'));
             } else {
@@ -107,6 +107,7 @@ export default function StartPage() {
             }
         }
     }, [answerArray]);
+
 
     return (
         <div className={styles.container}>

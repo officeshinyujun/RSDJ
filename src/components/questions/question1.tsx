@@ -16,6 +16,7 @@ export default function Question1({password}: Props) {
         if (Number(answer) === result) {
             setInPassword(password);
             setJudge(true);
+            console.log(password)
 
         }else if (Number(answer) === undefined) {
             console.log("null")

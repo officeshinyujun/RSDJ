@@ -11,6 +11,11 @@ import Modal from "../../components/modal/Modal.tsx";
 import underArrow from "../../assets/underArrow.png"
 import leftArrow from "../../assets/leftArrow.png"
 import { useNavigate } from "react-router-dom"; // useNavigate 가져오기
+import ReactPlayer from "react-player";
+import { IoMdPause } from "react-icons/io";
+import { IoMdPlay } from "react-icons/io";
+import { IoMdSettings } from "react-icons/io";
+
 
 export default function MainPage() {
     const [isMainOpen, setIsMainOpen] = useState(false);
@@ -29,9 +34,12 @@ export default function MainPage() {
     const initialCameraPosition = useRef<THREE.Vector3 | null>(null);
     const initialCameraLookAt = useRef<THREE.Vector3 | null>(null);
     const screenTransitionRef = useRef(null);
-    const navigate = useNavigate()
-
-
+    const navigate = useNavigate();
+    const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+    const [musicVolume, setMusicVolume] = useState<number | null>(null);
+    const [exitCameraPosition, setExitCameraPosition] = useState<THREE.Vector3 | null>(null);
+    const [exitCameraLookAt, setExitCameraLookAt] = useState<THREE.Vector3 | null>(null);
+    const [isPowerOn, setIsPowerOn] = useState(false)
 
     // localStorage에서 answer 가져오기
     const [answer, setAnswer] = useState<string[] | null>(null);
@@ -67,6 +75,17 @@ export default function MainPage() {
             }
         }
 
+    };
+
+    const resetToExitView = () => {
+        const camera = cameraRef.current;
+        if (camera && exitCameraPosition && exitCameraLookAt) {
+            setIsCameraFocusing(false);
+            animateCamera(camera.position, exitCameraPosition, 1200);
+            camera.lookAt(exitCameraLookAt);
+            console.log(exitCameraPosition)
+            console.log(exitCameraLookAt)
+        }
     };
 
     const resetCameraToInitial = () => {
@@ -112,9 +131,11 @@ export default function MainPage() {
         const distance = boxDistance;
         if (camera && center && size && distance) {
             const targetPosition = new THREE.Vector3(center.x, size.y - 1000, center.z + distance);
-            console.log(targetPosition)
-            const lookAtPoint = new THREE.Vector3(center.x, 750, 100)
-            console.log()
+            const lookAtPoint = new THREE.Vector3(center.x, 750, 100);
+            setExitCameraPosition(targetPosition.clone());
+            console.log(exitCameraPosition)
+            setExitCameraLookAt(lookAtPoint.clone());
+            console.log(exitCameraLookAt)
             animateCamera(camera.position, targetPosition, 1200);
             camera.lookAt(lookAtPoint);
         }
@@ -170,7 +191,7 @@ export default function MainPage() {
         const lightPosition = new THREE.Vector3(8, 795, -1000);
         const rectLight = new THREE.RectAreaLight(0xffffff, 2, 250, 190);
         rectLight.position.set(lightPosition.x, lightPosition.y, lightPosition.z);
-        scene.add(rectLight);
+            scene.add(rectLight);
 
         const lightPosition2 = new THREE.Vector3(-385.5, 670, -848.3128760982725);
         const rectLight2 = new THREE.RectAreaLight(0xffffff, 1, 220, 170);
@@ -319,19 +340,25 @@ export default function MainPage() {
         console.log("Updated inputAnswer:", inputAnswer); // 상태 변경 이후 최신 값 출력
     }, [inputAnswer]);
 
+    const [isMusicSettingsVisible, setIsMusicSettingsVisible] = useState(false);
+
+    const toggleMusicSettings = () => {
+        setIsMusicSettingsVisible((prev) => !prev);
+    };
+
 
     return (
-        <div id="three-container" style={{ width: "100vw", height: "100vh", overflow: "hidden" }}>
+        <div id="three-container" style={{width: "100vw", height: "100vh", overflow: "hidden"}}>
             <div className={styles.mainMonitor} onClick={
                 mainMonitorCameraSet
-            } />
+            }/>
             <div
                 className={classNames(styles.box, {
                     [styles.boxVisible]: isMainOpen,
                     [styles.boxHidden]: !isMainOpen,
                 })}
             >
-                <div className={styles.boxOverlay} />
+                <div className={styles.boxOverlay}/>
                 <div className={styles.content}>
                     <File
                         image={windowLogo}
@@ -347,7 +374,7 @@ export default function MainPage() {
                         modalInitalY={25}
                     >
                         <div>
-                            <Question1 password={answer?.[0]} />
+                            <Question1 password={answer?.[0]}/>
                         </div>
                     </File>
                     <File
@@ -364,7 +391,7 @@ export default function MainPage() {
                         modalInitalY={25}
                     >
                         <div>
-                            <Question2 password={answer?.[1]} />
+                            <Question2 password={answer?.[1]}/>
                         </div>
                     </File>
                 </div>
@@ -427,15 +454,40 @@ export default function MainPage() {
                         </>
                     ) : (
                         <>
-                            <p>nope</p>
+                            <p style={{opacity: "0.01"}}> a</p>
                         </>
                     )}
                 </div>
             )}
             <div className={styles.screenTransition} ref={screenTransitionRef}>
-
             </div>
-
+            <ReactPlayer
+                width="0px"
+                height="0px"
+                playing={isMusicPlaying}
+                controls
+                url={"https://www.youtube.com/watch?v=agS3VcS1Jw4"}
+                autoplay="autoplay"
+                volume={musicVolume}
+            />
+            <div className={classNames(styles.musicContainer, {[styles.visible]: isMusicSettingsVisible})}>
+                <button className={styles.musicButton} onClick={() => {
+                    isMusicPlaying ? setIsMusicPlaying(false) : setIsMusicPlaying(true)
+                }}>
+                    {isMusicPlaying ? (
+                        <IoMdPause size={30} color="white"/>
+                    ) : (
+                        <IoMdPlay size={30} color="white"/>
+                    )}
+                </button>
+                <p>배경음악 재생</p>
+                <input type="range" onChange={(e) => {
+                    setMusicVolume((e.target.value) / 100)
+                }}/>
+            </div>
+            <button onClick={toggleMusicSettings} className={styles.settingButton}>
+                <IoMdSettings size={30} color="white"/>
+            </button>
         </div>
     );
 }
